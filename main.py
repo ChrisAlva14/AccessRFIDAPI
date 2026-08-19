@@ -1,18 +1,9 @@
 from fastapi import FastAPI
-from Models.Employees import Employees
 
-app = FastAPI();
+from Models.Employee import Employee
 
-@app.get("/")
-async def root():
-    return {"message": "Welcome Christopher to the AccessRFID API"}
+app = FastAPI()
 
-
-@app.get("/{name}")
-async def greeting(name:str):
-    return {"message": "Hello there " + name}
-
-@app.get("/employees")
-async def get_employees():
-    employee = Employees.query.all()
-    return {"employees": [employee.json() for employee in employee]}
+@app.post("/employees")
+async def create_employee(employee: Employee):
+    return employee
